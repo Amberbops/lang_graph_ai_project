@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ColorfulTodo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>ColorfulTodo</h1>
+      <button id="darkModeToggle" aria-label="Toggle light/dark mode">Toggle Theme</button>
+    </header>
+    <section id="task-input">
+      <input id="newTaskInput" placeholder="Add a new task..." autocomplete="off" />
+      <button id="addTaskBtn">Add</button>
+    </section>
+    <ul id="taskList" class="task-list"></ul>
+    <div class="filters">
+      <button class="filter-btn" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="active">Active</button>
+      <button class="filter-btn" data-filter="completed">Completed</button>
+    </div>
+    <footer>
+      <small>© 2024 ColorfulTodo</small>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

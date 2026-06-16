@@ -1,0 +1,304 @@
+/*
+  styles.css – Visual design system & responsive layout for ColorfulTodo
+  ---------------------------------------------------------------
+  This stylesheet defines a vibrant colour palette using CSS custom properties,
+  supports light/dark mode toggling via the `.dark-mode` class on the <body>,
+  and provides styling for the header, task input area, task items, filter
+  footer, drag‑and‑drop cues, responsive breakpoints and simple animations.
+*/
+
+/* --------------------------------------------------------------------------
+   1. Colour palette – CSS custom properties
+   -------------------------------------------------------------------------- */
+:root {
+  /* Light theme colours */
+  --primary: #ff6f61;        /* vibrant coral */
+  --secondary: #ffb347;      /* warm amber */
+  --accent: #6a5acd;         /* soft indigo */
+  --bg-light: #fafafa;       /* light background */
+  --bg-dark: #212121;        /* dark background */
+  --text-light: #333333;     /* dark text for light bg */
+  --text-dark: #e0e0e0;      /* light text for dark bg */
+  --muted: #777777;          /* placeholder / secondary text */
+
+  /* Default variables used throughout the app */
+  --bg: var(--bg-light);
+  --text: var(--text-light);
+}
+
+/* Dark mode overrides – applied when .dark-mode is present on <body> */
+.dark-mode {
+  --primary: #ff8a80;        /* lighter coral for dark bg */
+  --secondary: #ffd180;      /* softer amber */
+  --accent: #9575cd;         /* lighter indigo */
+  --bg: var(--bg-dark);
+  --text: var(--text-dark);
+}
+
+/* --------------------------------------------------------------------------
+   2. Global resets & base styles
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* --------------------------------------------------------------------------
+   3. Main container
+   -------------------------------------------------------------------------- */
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* --------------------------------------------------------------------------
+   4. Header
+   -------------------------------------------------------------------------- */
+header {
+  background: var(--primary);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: background-color 0.3s;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+#darkModeToggle {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#darkModeToggle:hover {
+  background: var(--secondary);
+  transform: scale(1.05);
+}
+
+/* --------------------------------------------------------------------------
+   5. Task input section
+   -------------------------------------------------------------------------- */
+#task-input {
+  background: var(--bg);
+  padding: 1rem 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+#task-input input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--muted);
+  border-radius: 0.4rem;
+  font-size: 1rem;
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+#task-input input::placeholder {
+  color: var(--muted);
+}
+
+#addTaskBtn {
+  background: var(--secondary);
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#addTaskBtn:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   6. Task list & items
+   -------------------------------------------------------------------------- */
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 1.5rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.task-list > li {
+  background: var(--bg);
+  margin: 0.5rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+  transition: background-color 0.3s, transform 0.2s, opacity 0.3s;
+}
+
+.task-list > li:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.task-list .title {
+  flex: 1;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.task-list .due-date {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.task-list button {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.task-list button:hover {
+  color: var(--accent);
+  transform: scale(1.2);
+}
+
+/* Completed state */
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   7. Footer – filter buttons
+   -------------------------------------------------------------------------- */
+footer {
+  background: var(--primary);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  background: var(--secondary);
+  border: none;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   8. Drag‑and‑drop visual cues
+   -------------------------------------------------------------------------- */
+.dragging {
+  opacity: 0.5;
+}
+
+.drag-over {
+  border-top: 2px solid var(--primary);
+}
+
+/* --------------------------------------------------------------------------
+   9. Responsive layout – mobile (≤ 600px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  #darkModeToggle {
+    width: 100%;
+  }
+
+  #task-input {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+    padding: 1rem;
+  }
+
+  #task-input input,
+  #addTaskBtn {
+    width: 100%;
+  }
+
+  footer {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .task-list > li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-list button {
+    align-self: flex-end;
+  }
+
+  body {
+    font-size: 0.95rem;
+  }
+}
