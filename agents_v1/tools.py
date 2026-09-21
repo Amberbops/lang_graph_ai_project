@@ -1,5 +1,6 @@
 import pathlib
 import subprocess
+import shutil
 from typing import Tuple
 from langchain_core.tools import tool
 
@@ -9,7 +10,9 @@ PROJECT_ROOT = (
 )
 
 
-def init_project_root():
+def init_project_root(clean: bool=True):
+    if clean and PROJECT_ROOT.exists():
+        shutil.rmtree(PROJECT_ROOT)
     PROJECT_ROOT.mkdir(parents=True, exist_ok=True)
     print("PROJECT_ROOT =", PROJECT_ROOT.resolve())
     return PROJECT_ROOT

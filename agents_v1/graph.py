@@ -2,40 +2,38 @@ import time
 
 from dotenv import load_dotenv
 from langchain_core.globals import set_verbose, set_debug
-from langchain_groq.chat_models import ChatGroq
+from langchain_google_genai import ChatGoogleGenerativeAI
+from google.api_core.exceptions import ResourceExhausted, InvalidArgument
 from langgraph.constants import END
 from langgraph.graph import StateGraph
 from langchain.agents import create_agent
-from groq import RateLimitError, BadRequestError
 from agent.tools import init_project_root
 from agent.prompts import *
 from agent.states import *
 from agent.tools import write_file, read_file, get_current_directory, list_files
-
+w
 _ = load_dotenv()
 
 set_debug(True)
 set_verbose(True)
-
-llm = ChatGroq(model="openai/gpt-oss-120b")
+llm = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite")
 
 
 def invoke_with_retry(runnable, *args, max_retries=5, base_wait=10, **kwargs):
-    """Invoke a runnable, retrying on Groq rate-limit (429) and tool-call-parsing (400) errors."""
+    """Invoke a runnable, retrying on Gemini rate-limit (429) and transient tool call errors."""
     for attempt in range(max_retries):
         try:
             return runnable.invoke(*args, **kwargs)
-        except RateLimitError as e:
+        except ResourceExhausted as e:
             wait = base_wait * (attempt + 1)
             print(f"Rate limit hit (attempt {attempt + 1}/{max_retries}), retrying in {wait}s...")
             time.sleep(wait)
-        except BadRequestError as e:
-            if "tool_use_failed" in str(e):
-                print(f"Tool call JSON parse failed (attempt {attempt + 1}/{max_retries}), retrying...")
+        except InvalidArgument as e:
+            if "tool" in str(e).lower() or "function" in str(e).lower():
+                print(f"Tool call issue (attempt {attempt + 1}/{max_retries}), retrying...")
                 time.sleep(2)
             else:
                 raise
-    # final attempt, let any error surface naturally
     return runnable.invoke(*args, **kwargs)
 
 
@@ -90,6 +88,8 @@ def coder_agent(state: dict) -> dict:
         f"Task: {current_task.task_description}\n"
         f"File: {current_task.filepath}\n"
         f"Existing content:\n{existing_content}\n"
+        f"IMPORTANT: You must write ONLY to the path '{current_task.filepath}'. "
+        f"Do not create, rename, or write to any other file.\n"
         "Use write_file(path, content) to save your changes."
     )
 

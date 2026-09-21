@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEON GENESIS — AI Project & Website Generator</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Cyber Background Visuals -->
+    <div class="cyber-grid" aria-hidden="true"></div>
+    <div class="glow-orb orb-pink" aria-hidden="true"></div>
+    <div class="glow-orb orb-cyan" aria-hidden="true"></div>
+    <div class="glow-orb orb-purple" aria-hidden="true"></div>
+
+    <div class="app-layout">
+        <!-- Top Navigation / Branding -->
+        <header class="neon-navbar">
+            <div class="nav-brand">
+                <span class="brand-glyph">⚡</span>
+                <div class="brand-text">
+                    <span class="brand-title">NEON<span class="text-cyan">GENESIS</span></span>
+                    <span class="brand-sub">AI WEB & PROJECT SYNTHESIZER</span>
+                </div>
+            </div>
+            <div class="nav-actions">
+                <a href="/about.html" class="chip" style="text-decoration: none; color: var(--neon-cyan); border-color: var(--border-cyan);">📖 ABOUT</a>
+                <div class="system-status-badge" id="system-badge">
+                    <span class="status-dot"></span>
+                    <span class="status-label">SYSTEM ONLINE</span>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="main-container">
+            <!-- Hero / Intro -->
+            <section class="hero-section">
+                <div class="hero-badge">AUTOMATED AGENTIC CHAIN v2.0</div>
+                <h1 class="hero-heading">
+                    SYNTHESIZE WEBSITES INTO <span class="gradient-text">READY-TO-USE ZIP</span>
+                </h1>
+                <p class="hero-desc">
+                    Describe any web application. DevPilot's autonomous agent team will inspect, architect, write, test, and package your code with real-time live telemetry.
+                </p>
+            </section>
+
+            <!-- Prompt & Control Panel -->
+            <section class="prompt-panel neon-card">
+                <form id="generator-form">
+                    <div class="prompt-input-wrapper">
+                        <textarea 
+                            id="prompt-input" 
+                            rows="3" 
+                            placeholder="Describe your dream website or app (e.g. 'Build a cyberpunk crypto dashboard with live trading charts, neon theme, and sound effects')..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <!-- Suggestions Chips -->
+                    <div class="prompt-suggestions">
+                        <span class="suggestions-label">QUICK TEMPLATES:</span>
+                        <button type="button" class="chip" data-prompt="Build a neon cyberpunk todo application with task filters and local storage">🐾 Neon Todo</button>
+                        <button type="button" class="chip" data-prompt="Create a futuristic glassmorphic calculator with history tape and sound feedback">🧮 Neon Calculator</button>
+                        <button type="button" class="chip" data-prompt="Build a retro arcade space shooter game in canvas with neon laser effects and high scores">🚀 Neon Arcade</button>
+                        <button type="button" class="chip" data-prompt="Design a dark mode digital clock & pomodoro timer with sound alerts and neon ring progress">⏱️ Cyber Clock</button>
+                    </div>
+
+                    <div class="panel-bottom-row">
+                        <label class="custom-checkbox-label">
+                            <input type="checkbox" id="clean-workspace-chk" checked>
+                            <span class="checkbox-visual"></span>
+                            <span class="checkbox-text">Clear workspace before generating</span>
+                        </label>
+
+                        <button type="submit" id="generate-btn" class="neon-btn-primary">
+                            <span class="btn-glow"></span>
+                            <span class="btn-text">⚡ INITIATE SYNTHESIS</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Generation Telemetry Section (Visible during/after generation) -->
+            <section id="telemetry-section" class="telemetry-section hidden">
+                <!-- Master Timer & Overview Card -->
+                <div class="master-timer-card neon-card">
+                    <div class="timer-top-bar">
+                        <div class="timer-title-box">
+                            <span class="pulse-indicator"></span>
+                            <span class="timer-card-title" id="pipeline-status-text">AGENT PIPELINE ACTIVE</span>
+                        </div>
+                        <div class="active-badge" id="active-step-badge">ROUTER</div>
+                    </div>
+
+                    <div class="master-timer-display">
+                        <span class="timer-label">TOTAL ELAPSED TIME</span>
+                        <div class="digital-clock" id="master-timer">00:00.00</div>
+                    </div>
+
+                    <!-- Progress bar -->
+                    <div class="pipeline-progress-track">
+                        <div class="pipeline-progress-fill" id="pipeline-progress-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Antigravity-Style Step Pipeline Grid -->
+                <div class="pipeline-steps-grid" id="pipeline-steps-container">
+                    <!-- Populated dynamically by app.js with live per-step timers -->
+                </div>
+
+                <!-- Completed Action Card: ZIP Download & File Inspector -->
+                <div id="completion-card" class="completion-card neon-card hidden">
+                    <div class="completion-header">
+                        <div class="completion-icon">🎉</div>
+                        <div>
+                            <h2 class="completion-title">PROJECT READY FOR DOWNLOAD</h2>
+                            <p class="completion-subtitle" id="completion-stats">7 files generated • 42.8 KB total</p>
+                        </div>
+                    </div>
+
+                    <div class="completion-actions">
+                        <a id="download-zip-btn" href="/api/download-zip" class="neon-btn-download">
+                            <span class="download-icon">📥</span>
+                            <span>DOWNLOAD PROJECT (.ZIP)</span>
+                        </a>
+                        <button type="button" id="preview-files-btn" class="neon-btn-secondary">
+                            <span>👁️ PREVIEW FILES</span>
+                        </button>
+                        <button type="button" id="new-gen-btn" class="neon-btn-ghost">
+                            <span>+ NEW PROJECT</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Terminal Console -->
+                <div class="terminal-card neon-card">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="terminal-title">LIVE TELEMETRY STREAM</span>
+                        <button type="button" id="clear-logs-btn" class="terminal-action">CLEAR</button>
+                    </div>
+                    <div class="terminal-body" id="terminal-logs">
+                        <!-- Streamed log entries -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- File Preview Modal -->
+        <div id="preview-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+            <div class="modal-content neon-card">
+                <div class="modal-header">
+                    <h3 class="modal-title">PROJECT FILE VIEWER</h3>
+                    <button type="button" id="close-modal-btn" class="close-btn">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-file-list" id="modal-file-list"></div>
+                    <div class="modal-file-viewer">
+                        <div class="viewer-header" id="viewer-filename">select a file...</div>
+                        <pre class="viewer-code"><code id="viewer-code-content">// Select a file from the list to preview code</code></pre>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="/api/download-zip" class="neon-btn-download modal-download-btn">
+                        <span>📥 Download .ZIP</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <footer class="neon-footer">
+            <span>Powered by <strong>DevPilot Autonomous Agentic Chain</strong> • LangGraph & Groq / Gemini</span>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
