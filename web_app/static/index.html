@@ -9,6 +9,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Immediate Authentication Guard -->
+    <script>
+        (function() {
+            var token = localStorage.getItem('devpilot_token');
+            var userId = localStorage.getItem('devpilot_user_id');
+            if (!token || !userId || userId === 'default') {
+                window.location.replace('/login');
+            }
+        })();
+    </script>
 </head>
 <body>
     <!-- Cyber Background Visuals -->
@@ -28,6 +38,11 @@
                 </div>
             </div>
             <div class="nav-actions">
+                <div id="user-profile-badge" class="chip hidden" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">
+                    <span id="user-display-email">developer@cyber.org</span>
+                </div>
+                <a id="nav-login-btn" href="/login" class="chip" style="text-decoration: none; color: var(--neon-pink); border-color: var(--border-pink);">🔑 LOGIN</a>
+                <button type="button" id="nav-logout-btn" class="chip hidden" style="color: var(--text-muted); background: transparent; cursor: pointer;">LOGOUT</button>
                 <a href="/about.html" class="chip" style="text-decoration: none; color: var(--neon-cyan); border-color: var(--border-cyan);">📖 ABOUT</a>
                 <div class="system-status-badge" id="system-badge">
                     <span class="status-dot"></span>
@@ -114,26 +129,63 @@
                 </div>
 
                 <!-- Completed Action Card: ZIP Download & File Inspector -->
-                <div id="completion-card" class="completion-card neon-card hidden">
-                    <div class="completion-header">
-                        <div class="completion-icon">🎉</div>
-                        <div>
-                            <h2 class="completion-title">PROJECT READY FOR DOWNLOAD</h2>
-                            <p class="completion-subtitle" id="completion-stats">7 files generated • 42.8 KB total</p>
+                <!-- Live Browser Preview & Download Panel -->
+                <div id="completion-card" class="preview-card neon-card hidden">
+                    <!-- Browser Chrome Header -->
+                    <div class="browser-chrome-header">
+                        <div class="browser-window-controls">
+                            <span class="window-dot red"></span>
+                            <span class="window-dot yellow"></span>
+                            <span class="window-dot green"></span>
+                        </div>
+                        <div class="browser-address-bar">
+                            <span class="browser-ssl-lock">🔒</span>
+                            <span class="browser-url" id="preview-url-display">http://localhost:5000/preview/</span>
+                            <button type="button" id="reload-preview-btn" class="browser-icon-btn" title="Reload App Preview">🔄</button>
+                        </div>
+                        <div class="browser-toolbar-actions">
+                            <div class="device-toggle-group">
+                                <button type="button" class="device-btn active" id="device-desktop-btn" title="Desktop View">💻</button>
+                                <button type="button" class="device-btn" id="device-mobile-btn" title="Mobile View">📱</button>
+                            </div>
+                            <a id="external-preview-link" href="/preview/" target="_blank" class="browser-icon-btn" title="Open App in New Tab">↗</a>
                         </div>
                     </div>
 
-                    <div class="completion-actions">
-                        <a id="download-zip-btn" href="/api/download-zip" class="neon-btn-download">
-                            <span class="download-icon">📥</span>
-                            <span>DOWNLOAD PROJECT (.ZIP)</span>
-                        </a>
-                        <button type="button" id="preview-files-btn" class="neon-btn-secondary">
-                            <span>👁️ PREVIEW FILES</span>
-                        </button>
-                        <button type="button" id="new-gen-btn" class="neon-btn-ghost">
-                            <span>+ NEW PROJECT</span>
-                        </button>
+                    <!-- Sandbox Iframe Container -->
+                    <div class="browser-viewport-wrapper">
+                        <div class="browser-viewport desktop" id="preview-viewport">
+                            <iframe 
+                                id="app-preview-iframe" 
+                                src="about:blank" 
+                                title="Generated App Live Preview"
+                                sandbox="allow-scripts allow-forms allow-same-origin allow-modals"
+                            ></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Action & Download Panel -->
+                    <div class="preview-bottom-panel">
+                        <div class="panel-info">
+                            <div class="panel-status-tag">
+                                <span class="status-pulse-dot"></span>
+                                <span class="panel-status-text">APP COMPILED & LIVE</span>
+                            </div>
+                            <div class="panel-file-stats" id="completion-stats">3 core files generated • Ready to export</div>
+                        </div>
+
+                        <div class="panel-action-buttons">
+                            <a id="download-zip-btn" href="/api/download-zip" class="neon-btn-download">
+                                <span class="download-icon">📥</span>
+                                <span>DOWNLOAD .ZIP</span>
+                            </a>
+                            <button type="button" id="preview-files-btn" class="neon-btn-secondary">
+                                <span>👁️ INSPECT CODE</span>
+                            </button>
+                            <button type="button" id="new-gen-btn" class="neon-btn-ghost">
+                                <span>+ NEW PROJECT</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 

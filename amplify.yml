@@ -1,0 +1,16 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - pip install -r requirements.txt
+    build:
+      commands:
+        - echo "DevPilot Python Backend & Neon Web Console built successfully."
+  artifacts:
+    baseDirectory: web_app/static
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - ~/.cache/pip

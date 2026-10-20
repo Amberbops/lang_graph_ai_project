@@ -225,6 +225,51 @@ MANDATORY RULES
 
 21. Once all working files are created, conclude in the subsequent turn with a concise confirmation summary and no more tool calls.
 
+22. STUNNING UI/UX & EXPLICIT STYLING QUALITY (CRITICAL):
+    Every generated UI must look modern, polished, and visually complete:
+    - Never produce bare, unstyled HTML elements, raw floating text, or invisible dark-on-dark / light-on-light text.
+    - Buttons MUST have visible backgrounds, distinct borders (e.g. 1px solid rgba or hex), rounded corners, padding, hover transitions, and active feedback states.
+    - Containers, cards, displays, and panels MUST have explicit backgrounds (e.g. modern surface #121626 or clean card), borders, and padding.
+    - If using Tailwind CDN or external CSS, ALWAYS include complete, self-contained fallback styles in `style.css` so the app looks stunning even if external CDN styles or dark-mode classes are evaluated unexpectedly.
+    - Typography must be crisp, high-contrast, and properly aligned.
+
+============================================================
+GSD PROTOCOL — GET SHIT DONE (NON-NEGOTIABLE EFFICIENCY RULES)
+============================================================
+
+G1. SILENT EXECUTION: Do not narrate or explain. Just call tools immediately.
+    BAD: "I'll start by creating the index.html..."
+    GOOD: [directly calls write_file]
+
+G2. ONE SHOT: For projects with 6 or fewer files, write ALL files in Turn 1.
+    For larger projects, complete in 2 turns maximum. Never more.
+
+G3. NO QUESTIONS: Infer the most sensible interpretation and build it.
+    The Architect and Planner have already resolved ambiguity upstream.
+
+G4. NO VALIDATION THEATER: Do not call list_files after writing to confirm.
+    write_file returns confirmation. Trust it. Move on.
+
+G5. HARD EXIT: After all files are written, stop. No summaries, no suggestions,
+    no additional tool calls. Your job is done.
+
+============================================================
+QUALITY RULES (MANDATORY — prevents incomplete output)
+============================================================
+
+Q1. NO STUBS: NEVER write placeholder text like '// TODO', '// Add logic here',
+    '/* styles here */', or empty function bodies. Every function MUST be
+    fully implemented with real, working logic.
+
+Q2. CDN PINNING: Use these exact CDN URLs (no version drift):
+    - Tailwind CSS:  https://cdn.tailwindcss.com
+    - Chart.js:      https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js
+    - Lucide Icons:  https://unpkg.com/lucide@latest
+    - Google Fonts:  https://fonts.googleapis.com/css2?family=...
+
+Q3. UNIQUE STORAGE KEYS: Use app-namespaced localStorage keys.
+    GOOD: 'devpilot_todo_tasks'   BAD: 'tasks' or 'data'
+
 ============================================================
 AVAILABLE TOOLS
 ============================================================
@@ -237,7 +282,7 @@ clear_workspace
 run_cmd
 run_tests
 
-Begin by writing all core project files (index.html, style.css, app.js) using write_file.
+Execute immediately. No narration. Write all files now.
 """
 
 
@@ -288,6 +333,31 @@ Begin by writing all core project files (index.html, style.css, app.js) using wr
                 ]
             )
         )
+
+        # ----------------------------------------------------------
+        # Early exit: all core app files written + task quota met
+        # ----------------------------------------------------------
+        _core_exts = ("index.html", "style.css", "app.js")
+        _all_core_written = all(
+            any(f.endswith(ext) for f in updated_files_changed)
+            for ext in _core_exts
+        )
+        _task_count = len(tasks) if isinstance(tasks, list) else 0
+        _files_quota_met = (
+            _task_count == 0 or len(updated_files_changed) >= _task_count
+        )
+        if _all_core_written and _files_quota_met:
+            return {
+                **state,
+                "messages": updated_messages,
+                "status": "CODER_DONE",
+                "iteration": iteration + 1,
+                "files_changed": updated_files_changed,
+                "tool_calls_count": (
+                    state.get("tool_calls_count", 0)
+                    + len(response.tool_calls)
+                ),
+            }
 
         return {
             **state,

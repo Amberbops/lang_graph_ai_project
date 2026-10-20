@@ -401,7 +401,7 @@ def coder_retry_node(
 # GRAPH BUILDER
 # ==================================================================
 
-def build_graph():
+def build_graph(checkpointer=None):
 
     graph = StateGraph(
         AgentState
@@ -565,11 +565,29 @@ def build_graph():
         "coder",
     )
 
-    return graph.compile()
+    return graph.compile(checkpointer=checkpointer)
 
 
 # ==================================================================
-# COMPILED APPLICATION
+# COMPILED APPLICATION (with optional Supabase Postgres persistence)
 # ==================================================================
 
-app = build_graph()
+import os
+
+def _init_graph():
+    db_url = os.getenv("DATABASE_URL")
+    if db_url:
+        try:
+            from psycopg_pool import ConnectionPool
+            from langgraph.checkpoint.postgres import PostgresSaver
+
+            pool = ConnectionPool(conninfo=db_url, max_size=5, kwargs={"autocommit": True})
+            checkpointer = PostgresSaver(pool)
+            checkpointer.setup()
+            print("  [OK] Connected to Supabase PostgreSQL checkpointer!")
+            return build_graph(checkpointer=checkpointer)
+        except Exception as exc:
+            print(f"  [WARN] Could not connect to Postgres checkpointer ({exc}). Falling back to memory.")
+    return build_graph()
+
+app = _init_graph()

@@ -23,6 +23,7 @@ Keys are loaded exclusively from .env (GOOGLE_API_KEY, GROQ_API_KEY).
 import os
 import time
 import logging
+from pathlib import Path
 
 from dotenv import load_dotenv
 from langchain_core.language_models.chat_models import BaseChatModel
@@ -67,6 +68,9 @@ GROQ_CANDIDATES = [
 # Cache — populated lazily on first call
 _GROQ_MODEL_CACHE: str | None = None
 
+# Disk cache — survives server restarts, avoids repeated probe pings
+_PROBE_CACHE_FILE = Path(__file__).parent.parent / ".groq_model_cache"
+
 
 # ------------------------------------------------------------------
 # Factories
@@ -107,14 +111,27 @@ def _probe_groq() -> str:
     if not groq_key:
         raise RuntimeError("GROQ_API_KEY is not set. Add it to .env.")
 
+    # -- Disk cache: skip live probe on subsequent server starts --
+    if _PROBE_CACHE_FILE.exists():
+        cached = _PROBE_CACHE_FILE.read_text().strip()
+        if cached:
+            print(f"  [OK] Groq model (disk cache): {cached}")
+            _GROQ_MODEL_CACHE = cached
+            return cached
+
     probe_msg = [HumanMessage(content="Hi")]
 
     for model_id in GROQ_CANDIDATES:
         try:
             client = _groq(model_id)
             client.invoke(probe_msg, max_tokens=1)
-            print(f"  ✅ Groq model selected: {model_id}")
+            print(f"  [OK] Groq model selected: {model_id}")
             _GROQ_MODEL_CACHE = model_id
+            # Persist to disk so next restart skips probing
+            try:
+                _PROBE_CACHE_FILE.write_text(model_id)
+            except Exception:
+                pass  # non-critical — in-memory cache still works
             return model_id
         except Exception as exc:
             err_str = str(exc).lower()
@@ -122,9 +139,9 @@ def _probe_groq() -> str:
             skip_kws = ("404", "not found", "not exist", "decommission",
                         "no longer supported", "does not have access")
             if any(kw in err_str for kw in skip_kws):
-                print(f"  ⚠️  {model_id} — unavailable/decommissioned, trying next …")
+                print(f"  [WARN] {model_id} - unavailable/decommissioned, trying next ...")
             else:
-                print(f"  ⚠️  {model_id} — error: {exc}, trying next …")
+                print(f"  [WARN] {model_id} - error: {exc}, trying next ...")
             continue
 
     raise RuntimeError(

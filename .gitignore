@@ -101,3 +101,7 @@ dmypy.json
 ehthumbs.db
 Thumbs.db
 desktop.ini
+
+# Disk Model Caches
+.groq_model_cache
+

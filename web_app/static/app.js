@@ -1,5 +1,5 @@
 // ==============================================================================
-// NEON GENESIS — FRONTEND CONTROLLER & LIVE ANTIGRAVITY TIMERS
+// NEON GENESIS — FRONTEND CONTROLLER, LIVE ANTIGRAVITY TIMERS & AUTH SESSIONS
 // ==============================================================================
 
 (function () {
@@ -29,6 +29,21 @@
     const viewerCodeContent = document.getElementById('viewer-code-content');
     const chips = document.querySelectorAll('.chip');
 
+    // Live App Preview & Export Elements
+    const appPreviewIframe = document.getElementById('app-preview-iframe');
+    const previewViewport = document.getElementById('preview-viewport');
+    const reloadPreviewBtn = document.getElementById('reload-preview-btn');
+    const deviceDesktopBtn = document.getElementById('device-desktop-btn');
+    const deviceMobileBtn = document.getElementById('device-mobile-btn');
+    const externalPreviewLink = document.getElementById('external-preview-link');
+    const downloadZipBtn = document.getElementById('download-zip-btn');
+
+    // User Profile / Supabase Auth Elements
+    const userProfileBadge = document.getElementById('user-profile-badge');
+    const userDisplayEmail = document.getElementById('user-display-email');
+    const navLoginBtn = document.getElementById('nav-login-btn');
+    const navLogoutBtn = document.getElementById('nav-logout-btn');
+
     // State
     let isRunning = false;
     let localStartTime = 0;
@@ -49,10 +64,63 @@
     ];
 
     // ==========================================================================
+    // AUTH SESSION HELPERS
+    // ==========================================================================
+
+    function getAuthToken() {
+        return localStorage.getItem('devpilot_token') || '';
+    }
+
+    function getUserId() {
+        return localStorage.getItem('devpilot_user_id') || 'default';
+    }
+
+    function getUserEmail() {
+        return localStorage.getItem('devpilot_email') || '';
+    }
+
+    function updateDownloadAndPreviewLinks() {
+        const userId = getUserId();
+        const downloadUrl = `/api/download-zip?user_id=${encodeURIComponent(userId)}`;
+        if (downloadZipBtn) {
+            downloadZipBtn.href = downloadUrl;
+        }
+        const modalDownloadBtns = document.querySelectorAll('.modal-download-btn');
+        modalDownloadBtns.forEach(btn => {
+            btn.href = downloadUrl;
+        });
+        if (externalPreviewLink) {
+            externalPreviewLink.href = `/preview/?user_id=${encodeURIComponent(userId)}`;
+        }
+    }
+
+    function initAuthSession() {
+        const token = getAuthToken();
+        const userId = getUserId();
+        const email = getUserEmail();
+
+        if (token && userId && userId !== 'default') {
+            if (userProfileBadge && userDisplayEmail) {
+                userDisplayEmail.textContent = email || 'Authenticated User';
+                userProfileBadge.classList.remove('hidden');
+            }
+            if (navLoginBtn) navLoginBtn.classList.add('hidden');
+            if (navLogoutBtn) navLogoutBtn.classList.remove('hidden');
+        } else {
+            if (userProfileBadge) userProfileBadge.classList.add('hidden');
+            if (navLoginBtn) navLoginBtn.classList.remove('hidden');
+            if (navLogoutBtn) navLogoutBtn.classList.add('hidden');
+        }
+
+        updateDownloadAndPreviewLinks();
+    }
+
+    // ==========================================================================
     // INITIALIZATION & EVENT LISTENERS
     // ==========================================================================
 
     function init() {
+        initAuthSession();
         renderStepCards(DEFAULT_STEPS);
         setupEventListeners();
         checkInitialStatus();
@@ -79,6 +147,16 @@
             terminalLogs.innerHTML = '';
         });
 
+        if (navLogoutBtn) {
+            navLogoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('devpilot_token');
+                localStorage.removeItem('devpilot_user_id');
+                localStorage.removeItem('devpilot_email');
+                document.cookie = "devpilot_user_id=; Path=/preview/; Max-Age=0; SameSite=Lax";
+                window.location.replace('/login');
+            });
+        }
+
         previewFilesBtn.addEventListener('click', openPreviewModal);
         closeModalBtn.addEventListener('click', closePreviewModal);
 
@@ -89,10 +167,35 @@
         newGenBtn.addEventListener('click', () => {
             completionCard.classList.add('hidden');
             telemetrySection.classList.add('hidden');
+            if (appPreviewIframe) appPreviewIframe.src = 'about:blank';
             promptInput.value = '';
             promptInput.focus();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // App Preview Controls
+        if (reloadPreviewBtn) {
+            reloadPreviewBtn.addEventListener('click', () => {
+                if (appPreviewIframe) {
+                    const userId = getUserId();
+                    appPreviewIframe.src = `/preview/?user_id=${encodeURIComponent(userId)}&t=${Date.now()}`;
+                }
+            });
+        }
+
+        if (deviceDesktopBtn && deviceMobileBtn && previewViewport) {
+            deviceDesktopBtn.addEventListener('click', () => {
+                deviceDesktopBtn.classList.add('active');
+                deviceMobileBtn.classList.remove('active');
+                previewViewport.className = 'browser-viewport desktop';
+            });
+
+            deviceMobileBtn.addEventListener('click', () => {
+                deviceMobileBtn.classList.add('active');
+                deviceDesktopBtn.classList.remove('active');
+                previewViewport.className = 'browser-viewport mobile';
+            });
+        }
     }
 
     // ==========================================================================
@@ -133,6 +236,8 @@
         if (!prompt || isRunning) return;
 
         const clean = cleanChk.checked;
+        const userId = getUserId();
+        const token = getAuthToken();
 
         // Reset UI
         completionCard.classList.add('hidden');
@@ -156,10 +261,15 @@
         startMasterTimerTicker();
 
         try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+
             const res = await fetch('/api/generate', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt, clean })
+                headers: headers,
+                body: JSON.stringify({ prompt, clean, user_id: userId })
             });
 
             const data = await res.json();
@@ -235,7 +345,8 @@
 
             updateUIFromState(state);
 
-            if (!state.is_running && state.status !== 'RUNNING') {
+            // Only stop when terminal state is reached
+            if (state.status === 'COMPLETED' || state.status === 'FAILED') {
                 stopGeneration(state.status === 'COMPLETED');
             }
         } catch (err) {
@@ -302,10 +413,25 @@
             const kbSize = (totalBytes / 1024).toFixed(1);
 
             completionStats.textContent = `${files.length} project files generated • ${kbSize} KB total`;
-            completionCard.classList.remove('hidden');
+            
+            // Only load iframe once on completion transition
+            if (completionCard.classList.contains('hidden')) {
+                completionCard.classList.remove('hidden');
+                const userId = getUserId();
+                if (appPreviewIframe) {
+                    const cacheBuster = Date.now();
+                    appPreviewIframe.src = `/preview/?user_id=${encodeURIComponent(userId)}&t=${cacheBuster}`;
+                }
+                updateDownloadAndPreviewLinks();
+                setTimeout(() => {
+                    completionCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+            }
         } else if (state.status === 'FAILED') {
-            pipelineStatusText.textContent = 'SYNTHESIS FAILED';
+            pipelineStatusText.textContent = 'SYNTHESIS FAILED: ' + (state.error_message || 'Error occurred');
             activeStepBadge.textContent = 'ERROR';
+            pipelineProgressBar.style.background = 'var(--neon-red)';
+            pipelineProgressBar.style.boxShadow = '0 0 15px var(--neon-red)';
         }
     }
 
@@ -346,6 +472,18 @@
                 localStartTime = state.start_time * 1000;
                 startMasterTimerTicker();
                 startPolling();
+            } else if (state.status === 'COMPLETED') {
+                // Restore completed project and live preview after page refresh
+                telemetrySection.classList.remove('hidden');
+                updateUIFromState(state);
+                const userId = getUserId();
+                if (appPreviewIframe) {
+                    appPreviewIframe.src = `/preview/?user_id=${encodeURIComponent(userId)}&t=${Date.now()}`;
+                }
+                updateDownloadAndPreviewLinks();
+            } else if (state.status === 'FAILED') {
+                telemetrySection.classList.remove('hidden');
+                updateUIFromState(state);
             }
         } catch (_) {}
     }
@@ -355,8 +493,17 @@
     // ==========================================================================
 
     async function openPreviewModal() {
+        const userId = getUserId();
+        const token = getAuthToken();
+        const headers = {};
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
         try {
-            const res = await fetch('/api/files');
+            const res = await fetch(`/api/files?user_id=${encodeURIComponent(userId)}`, {
+                headers: headers
+            });
             if (!res.ok) return;
             const data = await res.json();
             cachedFiles = data.files || [];

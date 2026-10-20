@@ -4,7 +4,9 @@ from langchain_core.tools import tool
 from tools.project.workspace import (
     PROJECT_ROOT,
     safe_path_for_project,
+    get_current_user_context,
 )
+from tools.project.storage import upload_project_file
 
 
 @tool
@@ -19,6 +21,13 @@ def write_file(path: str, content: str) -> str:
         content,
         encoding="utf-8",
     )
+
+    # Sync to cloud storage (Supabase) under users/{user_id}/...
+    try:
+        user_id = get_current_user_context()
+        upload_project_file(path, content, user_id=user_id)
+    except Exception:
+        pass
 
     return f"WROTE: {file_path}"
 
