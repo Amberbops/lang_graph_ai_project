@@ -1,193 +1,162 @@
-# ⚡ NEON GENESIS — Autonomous AI Software Development Agent & Web Studio
+# ⚡ DevPilot (Neon Genesis) — Autonomous Agentic Software Engineering System
 
-> **Autonomous Agentic Pipeline & Web Studio powered by LangGraph, Groq, and Google Gemini.**  
-> Transform natural language ideas into full-stack codebases and download them as production-ready `.zip` archives with real-time **Antigravity-style generating timers**.
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![LangGraph](https://img.shields.io/badge/Orchestration-LangGraph_v2-black.svg?logo=langchain&logoColor=white)](https://github.com/langchain-ai/langgraph)
+[![Groq Cloud](https://img.shields.io/badge/Inference-Groq_GPT--OSS_120B-f55036.svg)](https://groq.com/)
+[![Google Gemini](https://img.shields.io/badge/Reasoning-Gemini_3.5_Flash--Lite-4285F4.svg?logo=google&logoColor=white)](https://ai.google.dev/)
+[![Supabase](https://img.shields.io/badge/Auth_%26_Storage-Supabase_Cloud-3ECF8E.svg?logo=supabase&logoColor=white)](https://supabase.com/)
+[![AWS ECS](https://img.shields.io/badge/Deployed_on-AWS_ECS_Express-FF9900.svg?logo=amazon-aws&logoColor=white)](https://de-b16ea536b5cf462a8ba1b5767f6a4c82.ecs.us-east-1.on.aws)
+[![Docker](https://img.shields.io/badge/Container-Docker_Ready-2496ED.svg?logo=docker&logoColor=white)](https://www.docker.com/)
 
----
-
-## 👨‍💻 Project Owner & Maintainer
-
-- **Owner**: Amber Saluja
-- **Contact / Email**: [ambersaluja20006@gmail.com](mailto:ambersaluja20006@gmail.com)
-- **Repository**: `lang_graph_ai_project` (DevPilot v2.0)
-
----
-
-## 🌟 Key Highlights
-
-- **🧠 Dual-Provider LLM Orchestration**:
-  - **Gemini 3.5 Flash-Lite**: Lightning-fast intent classification (`router`), project filesystem scanning (`inspector`), and test output parsing (`tester`).
-  - **Groq `openai/gpt-oss-120b` / Compound**: High-capacity reasoning, technical design (`architect`), task planning (`planner`), tool-calling code generation (`coder`), and debugging (`debugger`).
-  - **Self-Healing Model Prober**: Automatically tests Groq models at startup and selects the best active model, skipping decommissioned models cleanly.
-- **⚡ 7-Node LangGraph State Machine**:
-  - `Router` → `Inspector` → `Architect` → `Planner` → `Coder` (tool execution loop) → `Tester` → `Packager`.
-  - Self-healing debugging loop: If tests fail, the `debugger` node diagnoses the root cause and passes the fix plan back to `coder`.
-- **⏱️ Antigravity-Style Live Timers**:
-  - Master digital stopwatch with 60ms millisecond precision tracking total generation time.
-  - Per-step milestone timers with live pulsing neon status indicators.
-- **📦 Instant ZIP Export & Code Previewer**:
-  - One-click `.zip` packaging of the generated workspace.
-  - In-browser code preview modal with syntax formatting.
-- **🌐 Zero-Dependency Web Studio**:
-  - Built-in multi-threaded Python server (`web_app/server.py`) requiring zero external web framework installations.
-  - Futuristic Neon Cyberpunk UI with quick template prompts and live terminal logs.
+An autonomous, multi-agent software engineering framework that converts plain natural language prompts into complete, fully functional, zero-build web applications delivered directly into an in-browser sandbox and packaged as downloadable ZIP archives.
 
 ---
 
-## 🏗️ Architecture & Agentic Chain
+### 🌐 Live Cloud Deployment
 
-```
-                ┌──────────────┐
-                │  User Prompt │
-                └──────┬───────┘
-                       │
-                       ▼
-              ┌─────────────────┐
-              │   Router Node   │ (Gemini Flash-Lite)
-              └────────┬────────┘
-                       │
-       ┌───────────────┼───────────────┐
-       │ (EXPLAIN)     │ (CREATE/MOD)  │ (CHAT)
-       ▼               ▼               ▼
- ┌───────────┐   ┌───────────┐    ┌─────────┐
- │ Explainer │   │ Inspector │    │ Direct  │
- └─────┬─────┘   └─────┬─────┘    │ Reply   │
-       │               │          └────┬────┘
-       │               ▼               │
-       │         ┌───────────┐         │
-       │         │ Architect │ (Groq 120B)
-       │         └─────┬─────┘         │
-       │               │               │
-       │               ▼               │
-       │         ┌───────────┐         │
-       │         │  Planner  │ (Groq 120B)
-       │         └─────┬─────┘         │
-       │               │               │
-       │               ▼               │
-       │         ┌───────────┐         │
-       │   ┌────►│   Coder   │◄────┐   │
-       │   │     └─────┬─────┘     │   │
-       │   │ (Loop)    │           │   │
-       │   └───────────┘           │   │
-       │               ▼           │   │
-       │         ┌───────────┐     │   │
-       │         │  Tester   │     │   │
-       │         └─────┬─────┘     │   │
-       │               │           │   │
-       │     (Pass) ┌──┴──┐ (Fail) │   │
-       │      ┌─────┘     └─────┐  │   │
-       │      ▼                 ▼  │   │
-       │ ┌──────────┐     ┌────────┴─┐ │
-       │ │ Packager │     │ Debugger ├─┘
-       │ └────┬─────┘     └──────────┘
-       │      │
-       ▼      ▼
-   ┌─────────────┐
-   │ Output .ZIP │
-   └─────────────┘
+[![AWS ECS Live](https://img.shields.io/badge/AWS_ECS-Live_Service-FF9900?logo=amazon-aws&logoColor=white)](https://de-b16ea536b5cf462a8ba1b5767f6a4c82.ecs.us-east-1.on.aws)
+[![Deployment Status](https://img.shields.io/badge/Status-On--Demand_(Cost_Optimized)-blue)](#-live-cloud-deployment)
+
+> 🔗 **Live Demo URL:** [https://de-b16ea536b5cf462a8ba1b5767f6a4c82.ecs.us-east-1.on.aws](https://de-b16ea536b5cf462a8ba1b5767f6a4c82.ecs.us-east-1.on.aws)
+>
+> ⚠️ **Note on Cloud Availability & Cost Optimization:**  
+> To actively manage AWS Fargate serverless compute costs, the cloud container service is purposefully maintained in an **on-demand state (`desired_count = 0`)** when not actively undergoing scheduled evaluation or demos. 
+> * **Recruiter / Evaluation Demos:** Reach out to [`ambersaluja20006@gmail.com`](mailto:ambersaluja20006@gmail.com) to spin up the container instance on demand.
+> * **Instant Local Run:** You can run the exact production stack locally in under 30 seconds using `uv` or Docker.
+
+---
+
+## 🚀 Key Highlights & Engineering Features
+
+- **End-to-End Agentic SDLC:** Moves beyond simple single-file code generation by orchestrating an 8-stage stateful software development pipeline.
+- **Supabase Cloud Partitions & Auth Gateway:** Multi-tenant user authentication where each developer receives an isolated partition (`users/{user_id}/...`) that cleanly purges to 0 bytes on each new synthesis request.
+- **Zero-Build Architecture:** Generates self-contained, native HTML5, modern CSS3 variables, and vanilla ES6 code that runs immediately in any browser without requiring `npm install` or compilation steps.
+- **Rate Limit (TPM) Sliding-Window Pruning:** Built-in resilience mechanism preventing 413/429 token-per-minute errors on Groq by batching code writes in Turn 1 and pruning agent conversational memory.
+- **Live In-Browser Sandbox Preview:** Features isolated iframe sandboxing with scoped session cookies (`devpilot_user_id`), device viewport toggles (Desktop vs. Mobile 375px), and real-time step timers.
+- **Containerized & Production Ready:** Includes multi-stage `Dockerfile`, non-root execution, health check probes (`/health`), and dynamic `$PORT` binding for AWS ECS / Amplify / App Runner.
+
+---
+
+## 📐 System Architecture (LangGraph Directed Graph)
+
+DevPilot structures AI agents into a stateful, cyclical graph (`StateGraph`) with automated validation loops:
+
+```mermaid
+flowchart TD
+    User([👤 User Request]) --> Router[🧭 Router Agent]
+
+    Router -->|CREATE / MODIFY| Inspector[🔍 Workspace Inspector]
+    Router -->|CHAT| Direct[💬 Direct Response]
+    Router -->|EXPLAIN / TEST| Explainer[📖 Explainer / Tester]
+
+    Inspector --> Architect[📐 System Architect]
+    Architect --> Planner[📋 Strategic Planner]
+    Planner --> Coder[⚡ Coding Agent]
+
+    Coder --> Tester[🧪 Tester Agent]
+    Tester -->|Tests Passed| Packager[📦 ZIP Packager]
+    Tester -->|Tests Failed| Debugger[🛠️ Debugger Agent]
+    Debugger -->|Surgical Fix| Coder
+
+    Packager --> S3[☁️ Supabase Cloud Storage]
+    S3 --> Preview([🖥️ Live Sandbox Preview & ZIP Download])
 ```
 
+### Specialized Agent Responsibilities
+
+| Agent Node | Responsibility | Core Engine |
+| :--- | :--- | :--- |
+| **🧭 Router** | Analyzes intent: `CREATE`, `MODIFY`, `DEBUG`, `TEST`, or `CHAT`. | Gemini 3.5 Flash-Lite / Groq Auto |
+| **🔍 Inspector** | Scans workspace directory layout, existing dependencies, and files. | Sandboxed Filesystem Tools |
+| **📐 Architect** | Formulates system architecture, tech stack, data flow, and UI constraints. | Groq GPT-OSS 120B (Structured) |
+| **📋 Planner** | Breaks architectural design into 4–7 prioritized, sequential tasks. | Groq GPT-OSS 120B (Pydantic Schema) |
+| **⚡ Coder** | Batch-emits code files via parallel tool calls with modern UX styling rules. | Groq Tool-Calling Agent |
+| **🧪 Tester** | Discovers tests, executes test suites, and parses stdout/stderr. | Subprocess Executor + LLM Parser |
+| **🛠️ Debugger** | Analyzes stack traces, inspects affected files, and applies targeted fixes. | Groq Reasoning Loop (Max 6x) |
+| **📦 Packager** | Compresses user workspace from cloud storage into an exportable ZIP archive. | Python in-memory `zipfile` |
+
 ---
 
-## 🚀 Quick Start Guide
+## 🛠️ Quick Start & Local Development
 
-### 1. Prerequisites & Environment Setup
+### 1. Prerequisites
+- Python 3.11+
+- [`uv`](https://github.com/astral-sh/uv) (recommended) or standard `pip`
+- Free API keys from [Groq Cloud](https://console.groq.com/) and [Google AI Studio](https://aistudio.google.com/)
+- (Optional) [Supabase](https://supabase.com/) project for cloud sessions
 
-Clone the repository and install dependencies using `uv` or standard Python `pip`:
+### 2. Installation & Setup
 
-```powershell
+Clone the repository:
+```bash
+git clone https://github.com/Amberbops/lang_graph_ai_project.git
 cd lang_graph_ai_project
-
-# Using uv (recommended)
-uv sync
-
-# Or using pip
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r pyproject.toml
 ```
 
-### 2. Configure API Keys
+Install dependencies using `uv`:
+```bash
+uv pip install -e .
+```
+*(Or with standard pip: `pip install -r requirements.txt`)*
 
-Create or edit `.env` in the project root:
-
+### 3. Environment Variables
+Create a `.env` file in the project root:
 ```env
-GOOGLE_API_KEY=your_gemini_api_key_here
-GROQ_API_KEY=your_groq_api_key_here
+# AI Model APIs
+GROQ_API_KEY=gsk_your_groq_api_key_here
+GOOGLE_API_KEY=AIzaSy_your_gemini_api_key_here
+
+# Optional: Supabase Auth & Cloud Storage
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_KEY=your_supabase_service_role_key
+
+# Web Server
+PORT=5000
 ```
 
----
-
-## 💻 Running the Application
-
-### Option A: Web Studio (Recommended)
-
-Launch the Neon Web Studio on port 5000:
-
-```powershell
+### 4. Run the Web Studio
+```bash
 uv run python web_app/server.py --port 5000
 ```
+Open **[http://localhost:5000](http://localhost:5000)** in your browser to access the Authentication Gateway and Studio Workspace.
 
-Open your browser to:
-👉 **[http://localhost:5000](http://localhost:5000)**
+---
 
-- **Studio (`/`)**: Input your prompt, watch the Antigravity timers tick, and download the finished project as `.zip`.
-- **About Page (`/about.html`)**: Interactive system documentation, architecture overview, and creator contact.
+## 🐳 Docker Deployment
 
-### Option B: Terminal CLI
+Build and run using the optimized production container:
 
-Run DevPilot directly in the command line:
+```bash
+# Build container image
+docker build -t devpilot-ai-studio .
 
-```powershell
-uv run python main.py
+# Run container with environment variables
+docker run -p 5000:5000 --env-file .env devpilot-ai-studio
 ```
 
-Optional CLI flags:
-```powershell
-uv run python main.py --clean                  # Clear generated_project workspace before running
-uv run python main.py --recursion-limit 200    # Increase LangGraph step limit for huge codebases
+Verify health check:
+```bash
+curl http://localhost:5000/health
+# Output: {"status": "healthy", "service": "DevPilot Synthesis Gateway"}
 ```
 
 ---
 
-## 📂 Project Structure
+## 📄 Documentation & Synopsis
 
-```
-lang_graph_ai_project/
-├── agents_v2/                 # Autonomous Agentic Engine
-│   ├── graph.py               # LangGraph state machine & conditional routing
-│   ├── models.py              # Dual-provider LLM router & self-healing Groq prober
-│   ├── states.py              # AgentState TypedDict definitions
-│   └── nodes/                 # Specialized agent nodes
-│       ├── router.py          # Intent classification & routing
-│       ├── inspector.py       # Filesystem structure analyzer
-│       ├── architect.py       # High-level architecture designer
-│       ├── planner.py         # Structured milestone planner (resilient fallback)
-│       ├── coder.py           # ReAct tool-calling coding agent (25 iterations)
-│       ├── debugger.py        # Automated bug diagnosis & root-cause analyzer
-│       ├── tester.py          # Automated test execution & verification
-│       └── tool_executor.py   # Tool dispatch and execution tracking
-├── tools/                     # Agent Tools
-│   ├── filesystem/            # read_file, write_file, delete_file, clear_workspace, list_files
-│   ├── terminal/              # Sandboxed terminal command execution
-│   ├── testing/               # Pytest / Jest automated runner
-│   └── project/               # Workspace boundary isolation
-├── web_app/                   # Neon Genesis Web Studio
-│   ├── server.py              # Multi-threaded zero-dependency HTTP server & ZIP packager
-│   └── static/                # Web Studio Frontend
-│       ├── index.html         # Main Studio UI & Antigravity timer dashboard
-│       ├── about.html         # System documentation & owner info
-│       ├── style.css          # Neon cyberpunk theme & glowing keyframe animations
-│       └── app.js             # High-frequency timer engine & API coordinator
-├── generated_project/         # Sandbox where synthesized files land
-├── main.py                    # Interactive CLI runner
-├── pyproject.toml             # Project dependencies & metadata
-└── README.md                  # Project documentation
-```
+A comprehensive, publication-quality technical report is available in the repository root:
+* **PDF Synopsis:** [`SYNOPSIS.pdf`](./SYNOPSIS.pdf)
+* **Markdown Synopsis:** [`SYNOPSIS.md`](./SYNOPSIS.md)
 
 ---
 
-## 🛡️ License
+## 👤 Author & Maintainer
 
-MIT License — Developed by **Amber Saluja** ([ambersaluja20006@gmail.com](mailto:ambersaluja20006@gmail.com)).
+* **Author:** Amber Saluja
+* **Email:** [ambersaluja20006@gmail.com](mailto:ambersaluja20006@gmail.com)
+* **Repository:** [https://github.com/Amberbops/lang_graph_ai_project](https://github.com/Amberbops/lang_graph_ai_project)
 
+---
+
+## 📜 License
+Distributed under the MIT License. See `LICENSE` for more information.
