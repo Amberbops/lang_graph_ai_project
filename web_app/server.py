@@ -656,7 +656,7 @@ if sys.platform == "win32":
         pass
 
 
-def run_server(port: int = 5000):
+def run_server(port: int = 10000):
     """Start the multi-threaded HTTP server."""
     server_address = ("0.0.0.0", port)
     httpd = ThreadingHTTPServer(server_address, NeonGeneratorHandler)
@@ -677,7 +677,7 @@ def run_server(port: int = 5000):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Neon Generator Web Server")
-    default_port = int(os.getenv("PORT", 5000))
+    default_port = int(os.getenv("PORT", 10000))
     parser.add_argument("--port", type=int, default=default_port, help=f"Port to listen on (default: {default_port})")
     args = parser.parse_args()
     run_server(port=args.port)

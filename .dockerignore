@@ -16,3 +16,5 @@ generated_project/
 workspace_project/
 tests/
 *.log
+aws-cost-control.txt
+devpilot-aws-backup/
