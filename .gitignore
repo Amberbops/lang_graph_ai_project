@@ -109,3 +109,4 @@ desktop.ini
 # Local AWS cleanup files
 aws-cost-control.txt
 devpilot-aws-backup/
+powershell.cmd
