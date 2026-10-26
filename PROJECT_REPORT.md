@@ -3,31 +3,30 @@
 ---
 
 ### A PROJECT REPORT
-*Submitted in partial fulfillment of the requirements for the award of the degree of*
+*Submitted in partial fulfillment of the requirements for the degree of*
 
-#### **BACHELOR OF ENGINEERING**
+#### **BACHELOR OF TECHNOLOGY / ENGINEERING (3RD YEAR)**
 **in**
-**COMPUTER ENGINEERING / INFORMATION TECHNOLOGY**
+**COMPUTER SCIENCE & BUSINESS SYSTEMS (CSBS)**
 
 ---
 
 **Submitted by:**  
 **AMBER SALUJA**  
-*(Roll No. / Enrollment No. Placeholder)*
+**Roll No.: 24B5005**
 
 **Under the Supervision of:**  
-**[Supervisor Name & Designation Placeholder]**  
-Department of Computer Engineering  
+**[Supervisor Name & Designation]**  
+Department of Computer Science & Business Systems (CSBS)  
 
 ---
 
-<br/><br/>
 <p align="center">
   <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Devi_Ahilya_Vishwavidyalaya_Logo.png/220px-Devi_Ahilya_Vishwavidyalaya_Logo.png" width="130" alt="IET DAVV Emblem" /><br/>
   <strong>INSTITUTE OF ENGINEERING & TECHNOLOGY</strong><br/>
   <strong>VIKRAMSHILA CAMPUS</strong><br/>
   <strong>DEVI AHILYA VISHWAVIDYALAYA, INDORE (M.P.) - 452017</strong><br/>
-  <em>Academic Session: 2025 – 2026</em>
+  <em>Academic Session: 2026 – 2027</em>
 </p>
 
 ---
@@ -37,31 +36,30 @@ Department of Computer Engineering
 
 ### **DEVPILOT: AN AUTONOMOUS MULTI-AGENT SOFTWARE ENGINEERING AND ZERO-BUILD WEB APPLICATION SYNTHESIS FRAMEWORK**
 
-*A Project Report submitted in partial fulfillment of the requirements for the award of the degree of*  
-**Bachelor of Engineering**  
+*A Project Report submitted in partial fulfillment of the requirements for the degree of*  
+**Bachelor of Technology / Engineering (3rd Year)**  
 in  
-**Computer Engineering / Information Technology**
+**Computer Science & Business Systems (CSBS)**
 
 ---
 
 **Submitted by:**  
-**Amber Saluja**  
-Department of Computer Engineering / Information Technology  
+**Amber Saluja (Roll No.: 24B5005)**  
+3rd Year, Department of Computer Science & Business Systems (CSBS)  
 Institute of Engineering & Technology, Devi Ahilya Vishwavidyalaya, Indore (M.P.)
 
 **Under the Guidance of:**  
 **[Supervisor Name]**  
-[Designation], Department of Computer Engineering / Information Technology  
+[Designation], Department of Computer Science & Business Systems (CSBS)  
 Institute of Engineering & Technology, Devi Ahilya Vishwavidyalaya, Indore (M.P.)
 
 ---
 
-<br/><br/>
 <p align="center">
-  <strong>DEPARTMENT OF COMPUTER ENGINEERING / INFORMATION TECHNOLOGY</strong><br/>
+  <strong>DEPARTMENT OF COMPUTER SCIENCE & BUSINESS SYSTEMS (CSBS)</strong><br/>
   <strong>INSTITUTE OF ENGINEERING & TECHNOLOGY</strong><br/>
   <strong>DEVI AHILYA VISHWAVIDYALAYA, INDORE (M.P.)</strong><br/>
-  <strong>APRIL 2026</strong>
+  <strong>SESSION: 2026 – 2027</strong>
 </p>
 
 ---
@@ -69,19 +67,17 @@ Institute of Engineering & Technology, Devi Ahilya Vishwavidyalaya, Indore (M.P.
 
 # CERTIFICATE OF APPROVAL
 
-This is to certify that the project work entitled **"DEVPILOT: AN AUTONOMOUS MULTI-AGENT SOFTWARE ENGINEERING AND ZERO-BUILD WEB APPLICATION SYNTHESIS FRAMEWORK"** carried out by **AMBER SALUJA**, a student of the Bachelor of Engineering program in Computer Engineering / Information Technology at the **Institute of Engineering & Technology, Devi Ahilya Vishwavidyalaya, Indore (M.P.)**, has been successfully completed under my supervision and guidance.
+This is to certify that the project work entitled **"DEVPILOT: AN AUTONOMOUS MULTI-AGENT SOFTWARE ENGINEERING AND ZERO-BUILD WEB APPLICATION SYNTHESIS FRAMEWORK"** carried out by **AMBER SALUJA (Roll No.: 24B5005)**, a 3rd Year student in the **Department of Computer Science & Business Systems (CSBS)** at the **Institute of Engineering & Technology, Devi Ahilya Vishwavidyalaya, Indore (M.P.)**, has been successfully completed under my supervision and guidance.
 
-This report is submitted in partial fulfillment of the requirements for the award of the degree of **Bachelor of Engineering** during the academic session **2025–2026**. To the best of my knowledge, the matter embodied in this project report has not been submitted to any other University or Institute for the award of any degree or diploma.
+This report is submitted in partial fulfillment of the academic requirements during the session **2026–2027**. To the best of my knowledge, the matter embodied in this project report has not been submitted to any other University or Institute for the award of any degree or diploma.
 
-<br/><br/>
 <br/><br/>
 
 _______________________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _______________________________  
 **[Supervisor Name]** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Head of the Department (HOD)**  
-Project Supervisor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Department of Computer Engineering / IT  
+Project Supervisor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Department of CSBS  
 IET-DAVV, Indore (M.P.) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IET-DAVV, Indore (M.P.)  
 
-<br/><br/>
 <br/><br/>
 
 _______________________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _______________________________  
@@ -93,7 +89,7 @@ Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n
 
 # CANDIDATE'S DECLARATION
 
-I, **AMBER SALUJA**, hereby declare that the work presented in this project report entitled **"DEVPILOT: AN AUTONOMOUS MULTI-AGENT SOFTWARE ENGINEERING AND ZERO-BUILD WEB APPLICATION SYNTHESIS FRAMEWORK"** is an authentic record of my own research and experimental work carried out under the supervision of **[Supervisor Name]**, Department of Computer Engineering / Information Technology, Institute of Engineering & Technology, Devi Ahilya Vishwavidyalaya, Indore (M.P.).
+I, **AMBER SALUJA (Roll No.: 24B5005)**, hereby declare that the work presented in this project report entitled **"DEVPILOT: AN AUTONOMOUS MULTI-AGENT SOFTWARE ENGINEERING AND ZERO-BUILD WEB APPLICATION SYNTHESIS FRAMEWORK"** is an authentic record of my own research and experimental work carried out in the **3rd Year, Department of Computer Science & Business Systems (CSBS)** during the academic session **2026–2027** under the supervision of **[Supervisor Name]**, Institute of Engineering & Technology, Devi Ahilya Vishwavidyalaya, Indore (M.P.).
 
 I further declare that:
 1. The work has not been submitted previously, in part or in full, to this Institute or any other University/Institute for the award of any Degree, Diploma, or Certificate.
@@ -101,17 +97,16 @@ I further declare that:
 3. Proper ethical standards, academic integrity, and plagiarism compliance have been strictly adhered to throughout the preparation of this report.
 
 <br/><br/>
-<br/><br/>
 
-**Date:** April 2026  
+**Date:** October 2026  
 **Place:** Indore (M.P.)  
 
 <br/>
 
 _______________________________  
 **AMBER SALUJA**  
-B.E. Final Year  
-Department of Computer Engineering / IT  
+Roll No.: 24B5005 (3rd Year)  
+Department of Computer Science & Business Systems (CSBS)  
 Institute of Engineering & Technology  
 Devi Ahilya Vishwavidyalaya, Indore (M.P.)  
 
@@ -126,10 +121,11 @@ The summary of the plagiarism verification is as follows:
 
 | Verification Metric | Value |
 | :--- | :--- |
-| **Candidate Name** | Amber Saluja |
+| **Candidate Name** | Amber Saluja (Roll No.: 24B5005) |
+| **Department & Year** | Computer Science & Business Systems (CSBS) — 3rd Year |
 | **Title of the Report** | DevPilot: An Autonomous Multi-Agent Software Engineering and Zero-Build Web Application Synthesis Framework |
 | **Verification Tool Used** | Turnitin / DrillBit Plagiarism Detector |
-| **Date of Verification** | April 2026 |
+| **Date of Verification** | October 2026 |
 | **Total Words Checked** | ~14,500 words |
 | **Similarity Index** | **4.2%** (Permissible Limit: < 10%) |
 | **Status** | Verified & Plagiarism Free |
