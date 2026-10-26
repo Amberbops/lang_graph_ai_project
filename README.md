@@ -5,7 +5,7 @@
 [![Groq Cloud](https://img.shields.io/badge/Inference-Groq_GPT--OSS_120B-f55036.svg)](https://groq.com/)
 [![Google Gemini](https://img.shields.io/badge/Reasoning-Gemini_3.5_Flash--Lite-4285F4.svg?logo=google&logoColor=white)](https://ai.google.dev/)
 [![Supabase](https://img.shields.io/badge/Auth_%26_Storage-Supabase_Cloud-3ECF8E.svg?logo=supabase&logoColor=white)](https://supabase.com/)
-[![AWS ECS](https://img.shields.io/badge/Deployed_on-AWS_ECS_Express-FF9900.svg?logo=amazon-aws&logoColor=white)](https://de-b16ea536b5cf462a8ba1b5767f6a4c82.ecs.us-east-1.on.aws)
+[![Render](https://img.shields.io/badge/Deploy-Render-46E3B7.svg?logo=render&logoColor=white)](https://render.com/)
 [![Docker](https://img.shields.io/badge/Container-Docker_Ready-2496ED.svg?logo=docker&logoColor=white)](https://www.docker.com/)
 
 An autonomous, multi-agent software engineering framework that converts plain natural language prompts into complete, fully functional, zero-build web applications delivered directly into an in-browser sandbox and packaged as downloadable ZIP archives.
@@ -14,15 +14,14 @@ An autonomous, multi-agent software engineering framework that converts plain na
 
 ### 🌐 Live Cloud Deployment
 
-[![AWS ECS Live](https://img.shields.io/badge/AWS_ECS-Live_Service-FF9900?logo=amazon-aws&logoColor=white)](https://de-b16ea536b5cf462a8ba1b5767f6a4c82.ecs.us-east-1.on.aws)
-[![Deployment Status](https://img.shields.io/badge/Status-On--Demand_(Cost_Optimized)-blue)](#-live-cloud-deployment)
+[![Render](https://img.shields.io/badge/Render-Docker_Web_Service-46E3B7?logo=render&logoColor=white)](https://render.com/)
+[![Deployment Status](https://img.shields.io/badge/Status-Active_%2F_Free_Tier-green)](#-live-cloud-deployment)
 
-> 🔗 **Live Demo URL:** [https://de-b16ea536b5cf462a8ba1b5767f6a4c82.ecs.us-east-1.on.aws](https://de-b16ea536b5cf462a8ba1b5767f6a4c82.ecs.us-east-1.on.aws)
+> 🔗 **Deployment Platform:** Render (Docker Web Service)  
 >
-> ⚠️ **Note on Cloud Availability & Cost Optimization:**  
-> To actively manage AWS Fargate serverless compute costs, the cloud container service is purposefully maintained in an **on-demand state (`desired_count = 0`)** when not actively undergoing scheduled evaluation or demos. 
-> * **Recruiter / Evaluation Demos:** Reach out to [`ambersaluja20006@gmail.com`](mailto:ambersaluja20006@gmail.com) to spin up the container instance on demand.
-> * **Instant Local Run:** You can run the exact production stack locally in under 30 seconds using `uv` or Docker.
+> 💡 **Free-Tier Sleep Notice:**  
+> The application is deployed on Render's Free tier. When inactive for 15 minutes, the instance automatically sleeps to conserve resources. Accessing the web application triggers an automatic spin-up (typically 30–50 seconds).
+> * **Instant Local Run:** You can run the exact production stack locally in under 30 seconds using standard Python or Docker.
 
 ---
 
@@ -33,7 +32,7 @@ An autonomous, multi-agent software engineering framework that converts plain na
 - **Zero-Build Architecture:** Generates self-contained, native HTML5, modern CSS3 variables, and vanilla ES6 code that runs immediately in any browser without requiring `npm install` or compilation steps.
 - **Rate Limit (TPM) Sliding-Window Pruning:** Built-in resilience mechanism preventing 413/429 token-per-minute errors on Groq by batching code writes in Turn 1 and pruning agent conversational memory.
 - **Live In-Browser Sandbox Preview:** Features isolated iframe sandboxing with scoped session cookies (`devpilot_user_id`), device viewport toggles (Desktop vs. Mobile 375px), and real-time step timers.
-- **Containerized & Production Ready:** Includes multi-stage `Dockerfile`, non-root execution, health check probes (`/health`), and dynamic `$PORT` binding for AWS ECS / Amplify / App Runner.
+- **Containerized & Production Ready:** Includes multi-stage `Dockerfile`, non-root execution, health check probes (`/health`), and dynamic `$PORT` binding (defaults to `10000` for Render).
 
 ---
 
@@ -110,15 +109,15 @@ GOOGLE_API_KEY=AIzaSy_your_gemini_api_key_here
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_KEY=your_supabase_service_role_key
 
-# Web Server
-PORT=5000
+# Web Server (defaults to 10000)
+PORT=10000
 ```
 
 ### 4. Run the Web Studio
 ```bash
-uv run python web_app/server.py --port 5000
+python web_app/server.py --port 10000
 ```
-Open **[http://localhost:5000](http://localhost:5000)** in your browser to access the Authentication Gateway and Studio Workspace.
+Open **[http://localhost:10000](http://localhost:10000)** in your browser to access the Authentication Gateway and Studio Workspace.
 
 ---
 
@@ -130,13 +129,13 @@ Build and run using the optimized production container:
 # Build container image
 docker build -t devpilot-ai-studio .
 
-# Run container with environment variables
-docker run -p 5000:5000 --env-file .env devpilot-ai-studio
+# Run container with environment variables on port 10000
+docker run -p 10000:10000 --env-file .env devpilot-ai-studio
 ```
 
 Verify health check:
 ```bash
-curl http://localhost:5000/health
+curl http://localhost:10000/health
 # Output: {"status": "healthy", "service": "DevPilot Synthesis Gateway"}
 ```
 
@@ -146,7 +145,6 @@ curl http://localhost:5000/health
 
 A comprehensive, publication-quality technical report is available in the repository root:
 * **PDF Synopsis:** [`SYNOPSIS.pdf`](./SYNOPSIS.pdf)
-* **Markdown Synopsis:** [`SYNOPSIS.md`](./SYNOPSIS.md)
 
 ---
 
